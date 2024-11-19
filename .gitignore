@@ -31,5 +31,5 @@ coverage
 *.tsbuildinfo
 
 # 忽略自动导入生成的文件提交
-types/*
+# types/*
 !types/env.d.ts
