@@ -1,0 +1,120 @@
+{
+  // 控制文件嵌套
+  "explorer.fileNesting.enabled": false,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  // 默认格式化程序
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // 保存文件缓慢时，开启以下代码
+  "vue.server.maxOldSpaceSize": 4096,
+  "vue.server.hybridMode": true,
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  // 默认行尾
+  "files.eol": "\n",
+
+  // 文本编辑相关配置
+  "editor.formatOnSave": false,
+  "editor.guides.bracketPairs": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit",
+    "source.organizeImports": "never"
+  },
+  // eslint 相关配置
+  "eslint.useFlatConfig": true,
+  "eslint.rules.customizations": [
+    { "rule": "style/*", "severity": "off", "fixable": true },
+    { "rule": "format/*", "severity": "off", "fixable": true },
+    { "rule": "*-indent", "severity": "off", "fixable": true },
+    { "rule": "*-spacing", "severity": "off", "fixable": true },
+    { "rule": "*-spaces", "severity": "off", "fixable": true },
+    { "rule": "*-order", "severity": "off", "fixable": true },
+    { "rule": "*-dangle", "severity": "off", "fixable": true },
+    { "rule": "*-newline", "severity": "off", "fixable": true },
+    { "rule": "*quotes", "severity": "off", "fixable": true },
+    { "rule": "*semi", "severity": "off", "fixable": true }
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "json5",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
+  ],
+  // stylelint 相关配置
+  "stylelint.enable": true,
+  "stylelint.validate": [
+    "css",
+    "postcss",
+    "scss",
+    "less",
+    "vue",
+    "sass",
+    "html"
+  ],
+  // prettier 相关配置
+  "prettier.enable": false,
+
+  // vue代码相关格式
+  "vue.inlayHints.missingProps": true,
+  "vue.autoInsert.dotValue": true,
+  "explorer.copyRelativePathSeparator": "/",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/lib": true,
+    "**/es": true,
+    "**/esm": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.gitignore": true,
+    "**/.gitkeep": true,
+    "**/.yarn": true,
+    "res": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.hg/store/**": true,
+    "**/node_modules/**": true,
+    "**/bower_components/**": true,
+    "**/jspm_packages/**": true,
+    "**/dist/**": true
+  },
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false
+}
