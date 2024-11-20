@@ -23,6 +23,8 @@ export default antfu({
   react: {
     overrides: {
       'react-dom/no-unsafe-target-blank': 'off',
+      'no-console': 'off',
+      'antfu/top-level-function': 'off',
       'perfectionist/sort-imports': [
         'error',
         {
