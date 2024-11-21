@@ -6,7 +6,7 @@ export const menuListToRoutes = () => {}
 
 /** 动态添加路由 */
 export const addRoutes = (childRoutes: RouteObject[]) => {
-  const rootRoute = routes.at(-1)
+  const rootRoute = routes.at(1)
   rootRoute!.children = [...childRoutes]
   return routes
 }

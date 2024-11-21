@@ -16,7 +16,7 @@ const routerOptions = {
 // 路由对象
 const createRouter = (rootChildRoutes: RouteObject[]) => {
   const routes = addRoutes(rootChildRoutes)
-  console.log(routes)
+  // console.log(routes)
   const router = createBrowserRouter(routes, routerOptions)
   return router
 }

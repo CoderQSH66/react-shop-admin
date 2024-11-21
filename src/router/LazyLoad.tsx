@@ -1,5 +1,6 @@
 import React, { memo, Suspense } from 'react'
 import asyncModules from './helper-Router/asyncModules'
+import Loading from './Loading'
 
 interface ILazyLoadProps {
   name: string
@@ -15,7 +16,7 @@ const LazyLoad: React.FC<ILazyLoadProps> = memo(({ name }) => {
     })
   }))
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading></Loading>}>
       <LoadComponent></LoadComponent>
     </Suspense>
   )

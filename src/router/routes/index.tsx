@@ -1,5 +1,6 @@
 import Layout from '@/layout'
 import { Navigate, type RouteObject } from 'react-router-dom'
+import layoutOutsideRoutes from './layout-outside'
 
 // 根路由
 export const rootRoute: RouteObject[] = [
@@ -16,7 +17,9 @@ export const rootRoute: RouteObject[] = [
 
 const routes: RouteObject[] = [
 // 根路由
-  ...rootRoute
+  ...rootRoute,
+  // 根路由外的路由
+  ...layoutOutsideRoutes
 ]
 
 export default routes
