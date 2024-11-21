@@ -1,7 +1,7 @@
 import type { FormProps } from 'antd'
 import loginPng from '@/assets/img/login.png'
 import { SettingOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Divider, Form, Input } from 'antd'
+import { App, Button, Divider, Form, Input } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
 import { memo } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -13,10 +13,12 @@ interface ILoginProps {
 }
 const Login = memo(() => {
   const navigate = useNavigate()
+  const { message } = App.useApp()
   const onLogin: FormProps<ILoginProps>['onFinish'] = (value) => {
     console.log(value)
     setTimeout(() => {
       navigate('/')
+      message.success('登录成功')
     }, 500)
   }
   return (
