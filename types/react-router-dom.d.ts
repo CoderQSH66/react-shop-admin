@@ -7,6 +7,7 @@ declare module 'react-router-dom' {
       //
       title?: string
     }
+    children?: RouteObject[]
 
   }
 }

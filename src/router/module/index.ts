@@ -8,14 +8,14 @@ import systemRoutes from './system'
 import userRoutes from './user'
 
 const rootChildRoutes = [
-  ...mainRoutes,
-  ...shopRoutes,
-  ...userRoutes,
-  ...orderRoutes,
-  ...managerRoutes,
-  ...systemRoutes,
-  ...distributionRoutes,
-  ...otherRoutes
+  mainRoutes,
+  shopRoutes,
+  userRoutes,
+  orderRoutes,
+  managerRoutes,
+  systemRoutes,
+  distributionRoutes,
+  otherRoutes
 ]
 
 export default rootChildRoutes

@@ -1,15 +1,27 @@
 import type { RouteObject } from 'react-router-dom'
 import LazyLoad from '../LazyLoad'
 
-const distributionRoutes: RouteObject[] = [
-  {
-    path: '/distribution-index',
-    element: <LazyLoad name="distribution-index"></LazyLoad>
+const distributionRoutes: RouteObject = {
+  path: '/distribution',
+  meta: {
+    title: '分销模块'
   },
-  {
-    path: '/distribution-setting',
-    element: <LazyLoad name="distribution-setting"></LazyLoad>
-  }
-]
+  children: [
+    {
+      path: '/distribution-index',
+      element: <LazyLoad name="distribution-index"></LazyLoad>,
+      meta: {
+        title: '分销员管理'
+      }
+    },
+    {
+      path: '/distribution-setting',
+      element: <LazyLoad name="distribution-setting"></LazyLoad>,
+      meta: {
+        title: '分销设置'
+      }
+    }
+  ]
+}
 
 export default distributionRoutes

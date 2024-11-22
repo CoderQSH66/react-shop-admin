@@ -1,0 +1,24 @@
+.root {
+  :global {
+    .sider {
+      background-color: var(--color-bg-base);
+
+      .my-header {
+        height: var(--header-height);
+      }
+
+      .my-menu {
+        height: calc(100% - var(--header-height));
+        overflow: auto;
+      }
+    }
+
+    .header {
+      background-color: var(--color-bg-base);
+    }
+
+    .main {
+      background-color: var(--color-bg-layout);
+    }
+  }
+}

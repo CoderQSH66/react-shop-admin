@@ -1,4 +1,4 @@
-import { App as AntApp, ConfigProvider } from 'antd'
+import { App as AntApp, ConfigProvider, Layout } from 'antd'
 import { memo } from 'react'
 import { RouterProvider } from 'react-router-dom'
 import createRouter from './router'
@@ -13,15 +13,17 @@ const App = memo(() => {
     }}
     >
       <AntApp>
-        <div className="App">
-          <RouterProvider
-            router={router}
-            future={{
-              v7_startTransition: true
-            }}
-          >
-          </RouterProvider>
-        </div>
+        <Layout>
+          <div className="App">
+            <RouterProvider
+              router={router}
+              future={{
+                v7_startTransition: true
+              }}
+            >
+            </RouterProvider>
+          </div>
+        </Layout>
       </AntApp>
     </ConfigProvider>
   )
