@@ -25,6 +25,7 @@ export default antfu({
       'react-dom/no-unsafe-target-blank': 'off',
       'no-console': 'off',
       'antfu/top-level-function': 'off',
+      'react-hooks/exhaustive-deps': 'off',
       'perfectionist/sort-imports': [
         'error',
         {

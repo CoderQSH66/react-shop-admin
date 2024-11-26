@@ -4,21 +4,24 @@ import LazyLoad from '../LazyLoad'
 const orderRoutes: RouteObject = {
   path: '/order',
   meta: {
-    title: '订单管理'
+    title: '订单管理',
+    icon: 'DiffOutlined'
   },
   children: [
     {
       path: '/order-list',
       element: <LazyLoad name="order-list"></LazyLoad>,
       meta: {
-        title: '订单管理'
+        title: '订单管理',
+        icon: 'FundOutlined'
       }
     },
     {
       path: '/comment-list',
       element: <LazyLoad name="comment-list"></LazyLoad>,
       meta: {
-        title: '评论管理'
+        title: '评论管理',
+        icon: 'CommentOutlined'
       }
     }
   ]

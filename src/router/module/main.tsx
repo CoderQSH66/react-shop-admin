@@ -4,13 +4,15 @@ import LazyLoad from '../LazyLoad'
 const mainRoutes: RouteObject = {
   path: '/',
   meta: {
-    title: '后台面板'
+    title: '后台面板',
+    icon: 'NodeIndexOutlined'
   },
   children: [
     {
       path: '/index',
       meta: {
-        title: '主控台'
+        title: '主控台',
+        icon: 'HomeOutlined'
       },
       element: <LazyLoad name="index"></LazyLoad>
     }
