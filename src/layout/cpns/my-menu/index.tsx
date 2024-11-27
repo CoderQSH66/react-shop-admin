@@ -24,6 +24,7 @@ const getInitOpenkeys = (initKey: string, items: any[]) => {
 }
 
 const index = memo(() => {
+  // const [theme, setTheme] = useState<'dark' | 'lihgt'>('dark')
   // 获取菜单
   const items = routesToMenus(rootChildRoutes) as any
 

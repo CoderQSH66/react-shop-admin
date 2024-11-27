@@ -75,7 +75,6 @@ const index: React.FC<IHeaderProps> = memo(({ collapsed, setCollapsed }) => {
   )
 
   const { openModal, ContextHolder } = useCoreModal({
-    width: 500,
     title: '修改密码',
     onOk() {
       form.validateFields().then((res) => {

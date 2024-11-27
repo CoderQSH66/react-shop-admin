@@ -1,0 +1,27 @@
+.root {
+  :global {
+    display: block;
+
+    .close-icon {
+      color: rgba(0, 0, 0, 40%);
+      background-color: #fff;
+
+      .ant-space-item:hover {
+        color: rgba(0, 0, 0, 80%);
+      }
+    }
+  }
+}
+
+.fullscreen {
+  :global {
+    .ant-modal {
+      top: 20px;
+      padding-bottom: 0 !important;
+
+      .ant-modal-body {
+        height: calc(100vh - 144px) !important;
+      }
+    }
+  }
+}

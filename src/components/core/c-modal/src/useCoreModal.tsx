@@ -2,16 +2,17 @@
  * @description: 基于antd Modal组件的自定义弹窗hook
  */
 
-import { Modal, type ModalProps } from 'antd'
 import React, { useCallback, useRef, useState } from 'react'
+import type { ICoreModalProps } from './types'
+import CoreModal from './CoreModal'
 
-type CoreModalProps = Omit<ModalProps, 'open' | 'onCancel'>
+type CoreModalProps = Omit<ICoreModalProps, 'open' | 'onCancel'>
 
-const useCoreModal = (modalProps?: CoreModalProps, children?: React.ReactNode): {
+function useCoreModal(modalProps?: CoreModalProps, children?: React.ReactNode): {
   ContextHolder: React.FC
   openModal: () => void
   closeModal: () => void
-} => {
+} {
   const [visible, setVisible] = useState<boolean>(false)
 
   const visibleRef = useRef(visible)
@@ -26,7 +27,7 @@ const useCoreModal = (modalProps?: CoreModalProps, children?: React.ReactNode): 
 
   /** 暴露出的modal组件（为了可以接收context） */
   const ContextHolder: React.FC = useCallback(() => {
-    return <Modal open={visibleRef.current} onCancel={closeModal} cancelText="取消" okText="确定" {...modalProps}>{children}</Modal>
+    return <CoreModal open={visibleRef.current} onCancel={closeModal} {...modalProps}>{children}</CoreModal>
   }, [])
 
   return {
