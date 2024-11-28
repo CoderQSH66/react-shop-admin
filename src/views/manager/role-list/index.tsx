@@ -12,7 +12,7 @@ const index = memo(() => {
         onCancel={() => {
           setVisible(false)
         }}
-        fullScreen
+        fullScreen={false}
       >
       </CoreModal>
       <Button

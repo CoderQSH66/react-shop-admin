@@ -26,6 +26,7 @@ export default antfu({
       'no-console': 'off',
       'antfu/top-level-function': 'off',
       'react-hooks/exhaustive-deps': 'off',
+      'no-useless-return': 'off',
       'perfectionist/sort-imports': [
         'error',
         {
