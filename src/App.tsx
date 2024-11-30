@@ -7,6 +7,7 @@ import rootChildRoutes from './router/module'
 const App = memo(() => {
   // 创建路由对象
   const router = createRouter(rootChildRoutes)
+
   return (
     <ConfigProvider theme={{
       cssVar: true
@@ -17,9 +18,6 @@ const App = memo(() => {
           <div className="App">
             <RouterProvider
               router={router}
-              future={{
-                v7_startTransition: true
-              }}
             >
             </RouterProvider>
           </div>

@@ -37,6 +37,7 @@ const index = memo(() => {
   const handleMenuClick: MenuProps['onClick'] = (menuInfo) => {
     const { key } = menuInfo
     setSelectedKeys([key])
+    // 路由跳转
     navigate(key)
   }
   // 点击展开菜单
