@@ -1,31 +1,57 @@
 import type { UploadProps } from 'antd/lib'
 import { PlusOutlined } from '@ant-design/icons'
 import { useControlModel, type WithControlPropsType } from '@ant-design/pro-components'
-import { Image, Space, Upload } from 'antd'
-import React, { memo } from 'react'
+import { Space, Upload } from 'antd'
+import React, { memo, useEffect, useState } from 'react'
+
+const getBase64 = (img: File, callback: (url: string) => void) => {
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result as string))
+  reader.readAsDataURL(img)
+}
 
 const BaseUpload: React.FC<WithControlPropsType<UploadProps>> = memo((props) => {
   const model = useControlModel(props)
+
+  const [fileList, setFileList] = useState<UploadProps['fileList']>([])
+  useEffect(() => {
+    model.value && (typeof model.value === 'string') && setFileList([{
+      uid: '-1',
+      name: 'init.png',
+      status: 'done',
+      url: model.value
+    }])
+  }, [model.value])
   return (
 
     <Space>
-      {
-        model.value && (typeof model.value === 'string') && (
-          <Image
-            src={model.value}
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 10
-            }}
-          >
-          </Image>
-        )
-      }
+
       <Upload
         listType="picture-card"
-        beforeUpload={() => false}
+        fileList={fileList}
         {...model}
+        onChange={(e) => {
+          const { file } = e
+          getBase64(file as any, (url) => {
+            setFileList([{
+              uid: file.uid,
+              name: file.name,
+              status: 'done',
+              url
+            }])
+          })
+
+          model.onChange(e)
+        }}
+        beforeUpload={() => {
+          return false
+        }}
+        onRemove={() => {
+          setFileList([])
+          model.onChange({
+            file: null
+          })
+        }}
       >
         <button
           style={{
