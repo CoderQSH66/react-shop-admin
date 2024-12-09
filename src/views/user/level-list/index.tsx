@@ -228,6 +228,7 @@ const index = memo(() => {
             </ProFormDigit>
           </ProFormItem>
           <ProFormDigit label="折扣率(%)" name="discount" width="md"></ProFormDigit>
+
         </ProForm>
       </Drawer>
     </div>

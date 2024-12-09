@@ -84,9 +84,10 @@ const index = memo(() => {
         }}
         pagination={
           {
-            pageSize: 5,
+            defaultPageSize: 5,
             showSizeChanger: true,
-            showQuickJumper: true
+            showQuickJumper: true,
+            pageSizeOptions: [5, 10, 20, 30]
           }
         }
         headerTitle={(
@@ -100,6 +101,10 @@ const index = memo(() => {
             新增用户
           </Button>
         )}
+        scroll={{
+          x: 'max-content',
+          y: 400
+        }}
       >
       </ProTable>
       <BetaSchemaForm
