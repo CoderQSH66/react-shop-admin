@@ -1,8 +1,9 @@
+import type { StateType } from '@/store'
 import type { MenuProps } from 'antd'
-import rootChildRoutes from '@/router/module'
 import routesToMenus from '@/utils/routesToMenus'
 import { Menu } from 'antd'
 import { memo, useEffect, useState } from 'react'
+import { shallowEqual, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const getInitOpenkeys = (initKey: string, items: any[]) => {
@@ -24,9 +25,11 @@ const getInitOpenkeys = (initKey: string, items: any[]) => {
 }
 
 const index = memo(() => {
-  // const [theme, setTheme] = useState<'dark' | 'lihgt'>('dark')
+  const { menus } = useSelector((state: StateType) => ({
+    menus: state.user.menus
+  }), shallowEqual)
   // 获取菜单
-  const items = routesToMenus(rootChildRoutes) as any
+  const items = routesToMenus(menus) as any
 
   // 路由切换
   const navigate = useNavigate()

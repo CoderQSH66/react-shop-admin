@@ -1,4 +1,5 @@
 import type { RouteObject } from 'react-router-dom'
+import AuthRoute from '../AuthRoute'
 import LazyLoad from '../LazyLoad'
 
 const distributionRoutes: RouteObject = {
@@ -10,7 +11,11 @@ const distributionRoutes: RouteObject = {
   children: [
     {
       path: '/distribution-index',
-      element: <LazyLoad name="distribution-index"></LazyLoad>,
+      element: (
+        <AuthRoute>
+          <LazyLoad name="distribution-index"></LazyLoad>
+        </AuthRoute>
+      ),
       meta: {
         title: '分销员管理',
         icon: 'AndroidOutlined'
@@ -18,7 +23,11 @@ const distributionRoutes: RouteObject = {
     },
     {
       path: '/distribution-setting',
-      element: <LazyLoad name="distribution-setting"></LazyLoad>,
+      element: (
+        <AuthRoute>
+          <LazyLoad name="distribution-setting"></LazyLoad>
+        </AuthRoute>
+      ),
       meta: {
         title: '分销设置',
         icon: 'StrikethroughOutlined'

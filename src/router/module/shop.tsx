@@ -25,7 +25,7 @@ const shopRoutes: RouteObject = {
       }
     },
     {
-      path: '/sku-list',
+      path: '/skus-list',
       element: <LazyLoad name="sku-list"></LazyLoad>,
       meta: {
         title: '规格管理',

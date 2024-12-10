@@ -1,4 +1,4 @@
-import type { RouteObject } from 'react-router-dom'
+import type { IMenuProps } from '@/types'
 import { createBrowserRouter } from 'react-router-dom'
 import { addRoutes } from './helper-Router/handleDynamicRouter'
 
@@ -15,8 +15,8 @@ const routerOptions = {
 }
 
 // 路由对象
-const createRouter = (rootChildRoutes: RouteObject[]) => {
-  const routes = addRoutes(rootChildRoutes)
+const createRouter = (menus: IMenuProps[]) => {
+  const routes = addRoutes(menus)
   // console.log(routes)
   const router = createBrowserRouter(routes, routerOptions)
   return router

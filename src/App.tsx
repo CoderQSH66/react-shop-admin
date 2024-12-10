@@ -1,13 +1,17 @@
 import { App as AntApp, ConfigProvider, Layout } from 'antd'
 import { memo } from 'react'
+import { shallowEqual, useSelector } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
+import type { StateType } from './store'
 import createRouter from './router'
-import rootChildRoutes from './router/module'
 
 const App = memo(() => {
+  const { menus } = useSelector((state: StateType) => ({
+    menus: state.user.menus
+  }), shallowEqual)
   // 创建路由对象
-  const router = createRouter(rootChildRoutes)
-
+  const router = createRouter(menus)
+  console.log(router)
   return (
     <ConfigProvider theme={{
       cssVar: true

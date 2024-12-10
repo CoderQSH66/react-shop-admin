@@ -1,9 +1,9 @@
 import type { AxiosRequestConfig } from 'axios'
 
 export interface IResponseData<T = any> {
-  error_code: number
-  reason: string
-  result: T
+  errorCode: number
+  msg: string
+  data: T
 }
 
 export interface IRequestConfig extends AxiosRequestConfig {

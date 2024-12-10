@@ -22,20 +22,21 @@ class Request {
     this.instance.interceptors.request.use((config) => {
       const { headers } = config
       const token = localStorage.getItem('token')
+      console.log(token)
       if (token) {
-        headers.setAuthorization(`Bearer ${localStorage.getItem('token')}`)
-        return config
+        headers.token = token
       }
-      else {
-        // window.location.href = '/'
-        return Promise.reject(new Error('用户认证失败！'))
-      }
+      return config
     }, (err) => {
       return Promise.reject(err)
     })
 
     // 响应拦截器
     this.instance.interceptors.response.use((res: AxiosResponse<IResponseData>) => {
+      const { errorCode, msg } = res.data
+      if (errorCode) {
+        return Promise.reject(msg)
+      }
       return res
     }, (err) => {
       return Promise.reject(err)
@@ -59,17 +60,19 @@ class Request {
           reslove(res.data)
         }
       }).catch((err) => {
-        console.log(err)
-        showMessage && $message.error(err.message || ResultEnum.UNKNOW_ERROR)
+        $message.error(err.message || err || ResultEnum.UNKNOW_ERROR)
         reject(err)
       })
     })
   }
 }
 
-const request = new Request({
-  baseURL: '/mock',
-  timeout: 10000
+const $request = new Request({
+  baseURL: import.meta.env.VITE_BASE_API_URL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
 })
 
-export default request
+export default $request

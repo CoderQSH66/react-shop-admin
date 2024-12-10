@@ -1,25 +1,18 @@
+import type { ILoginProps } from '@/types'
 import type { FormProps } from 'antd'
 import loginPng from '@/assets/img/login.png'
+import { LoginInfo } from '@/store/moudles/user'
 import { SettingOutlined, UserOutlined } from '@ant-design/icons'
-import { App, Button, Divider, Form, Input } from 'antd'
+import { Button, Divider, Form, Input } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
 import { memo } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import style from './style.module.less'
 
-interface ILoginProps {
-  username: string
-  password: string
-}
 const Login = memo(() => {
-  const navigate = useNavigate()
-  const { message } = App.useApp()
+  const dispatch = useDispatch<any>()
   const onLogin: FormProps<ILoginProps>['onFinish'] = (value) => {
-    console.log(value)
-    setTimeout(() => {
-      navigate('/')
-      message.success('登录成功')
-    }, 500)
+    dispatch(LoginInfo(value))
   }
   return (
     <div className={style.root}>
@@ -48,6 +41,7 @@ const Login = memo(() => {
                 span: 15
               }}
               onFinish={onLogin}
+              size="large"
             >
               <FormItem
                 label="账号"
