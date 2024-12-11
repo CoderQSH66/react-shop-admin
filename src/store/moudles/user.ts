@@ -1,4 +1,5 @@
 import type { ILoginProps, IMenuProps, IUserInfoProps } from '@/types'
+import type { NavigateFunction } from 'react-router-dom'
 import { getUserInfo, login } from '@/api'
 import { local } from '@/utils/Storage'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -17,7 +18,11 @@ const initialState: IUserState = {
 }
 
 // 异步action
-export const LoginInfo = createAsyncThunk('getLoginToken', async (info: ILoginProps, { dispatch }) => {
+export const LoginInfo = createAsyncThunk('getLoginToken', async (props: {
+  info: ILoginProps
+  navigate: NavigateFunction
+}, { dispatch }) => {
+  const { info, navigate } = props
   try {
     // 登录获取token
     const res = await login(info)
@@ -31,6 +36,9 @@ export const LoginInfo = createAsyncThunk('getLoginToken', async (info: ILoginPr
     local.set('menus', menus)
     dispatch(setUserInfo(userinfo))
     dispatch(setMenus(menus))
+
+    // 跳转到首页
+    navigate('/')
   }
   catch (error: any) {
     throw new Error(error)

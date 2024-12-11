@@ -17,3 +17,13 @@ export function getUserInfo() {
     url: '/getinfo'
   })
 }
+
+/** 退出登录 */
+export function exitLogin() {
+  return $request.request<IUserInfoProps>({
+    method: 'post',
+    url: '/logout',
+    showMessage: true,
+    showMessageText: '退出登录成功！'
+  })
+}

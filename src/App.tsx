@@ -11,7 +11,6 @@ const App = memo(() => {
   }), shallowEqual)
   // 创建路由对象
   const router = createRouter(menus)
-  console.log(router)
   return (
     <ConfigProvider theme={{
       cssVar: true

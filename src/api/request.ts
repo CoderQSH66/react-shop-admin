@@ -22,7 +22,6 @@ class Request {
     this.instance.interceptors.request.use((config) => {
       const { headers } = config
       const token = localStorage.getItem('token')
-      console.log(token)
       if (token) {
         headers.token = token
       }

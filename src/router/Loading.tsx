@@ -1,5 +1,6 @@
-import Nprogress from 'nprogress'
+import LoadingError from '@/views/error/loading'
 import 'nprogress/nprogress.css'
+import Nprogress from 'nprogress'
 import { memo, useEffect, useState } from 'react'
 
 const Loading = memo(() => {
@@ -18,7 +19,7 @@ const Loading = memo(() => {
   return (
     <>
       {
-        visible && (<h2>Loading...</h2>)
+        visible && (<LoadingError></LoadingError>)
       }
     </>
   )

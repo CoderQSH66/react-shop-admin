@@ -3,16 +3,24 @@ import type { FormProps } from 'antd'
 import loginPng from '@/assets/img/login.png'
 import { LoginInfo } from '@/store/moudles/user'
 import { SettingOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Divider, Form, Input } from 'antd'
+import { Button, Divider, Form, Input, message } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
 import { memo } from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import style from './style.module.less'
 
 const Login = memo(() => {
+  const navigate = useNavigate()
   const dispatch = useDispatch<any>()
   const onLogin: FormProps<ILoginProps>['onFinish'] = (value) => {
-    dispatch(LoginInfo(value))
+    dispatch(LoginInfo({
+      info: value,
+      navigate
+    }))
+    setTimeout(() => {
+      message.success('登录成功')
+    }, 100)
   }
   return (
     <div className={style.root}>

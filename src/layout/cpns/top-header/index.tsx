@@ -1,11 +1,13 @@
 import type { MenuProps } from 'antd/lib'
-import avatarJpg from '@/assets/img/avatar.jpg'
+import { exitLogin } from '@/api'
 import { useCoreModal } from '@/components/core/c-modal'
 import useFullscreen from '@/hooks/useFullscreen'
+import { local } from '@/utils/Storage'
 import { CompressOutlined, DownOutlined, ExpandOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import { Button, Dropdown, Form, Input, Tooltip } from 'antd'
+import { App, Button, Dropdown, Form, Input, Tooltip } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
 import React, { memo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface IHeaderProps {
   collapsed: boolean
@@ -17,6 +19,9 @@ const index: React.FC<IHeaderProps> = memo(({ collapsed, setCollapsed }) => {
     oldPassword: string
     newPassword: string
   }>()
+  const navigate = useNavigate()
+
+  const { modal } = App.useApp()
 
   const UpdatePasswordFC: React.FC = () => (
     <Form
@@ -90,15 +95,26 @@ const index: React.FC<IHeaderProps> = memo(({ collapsed, setCollapsed }) => {
     setTitle(isCollapsed ? '展开' : '折叠')
   }
 
+  const loginOut = async () => {
+    modal.confirm({
+      title: '是否退出登录？',
+      onOk: async () => {
+        await exitLogin()
+        local.clear()
+        navigate('/')
+      },
+      okText: '退出',
+      cancelText: '取消'
+    })
+  }
+
   // 下拉列表
   const items: MenuProps['items'] = [{
     key: '1',
     label: (
       <Button
         type="link"
-        onClick={() => {
-          openModal()
-        }}
+        onClick={openModal}
       >
         修改密码
       </Button>
@@ -106,10 +122,11 @@ const index: React.FC<IHeaderProps> = memo(({ collapsed, setCollapsed }) => {
   }, {
     key: '2',
     label: (
-      <Button type="link">退出登录</Button>
+      <Button type="link" onClick={loginOut}>退出登录</Button>
     )
   }]
   const [isFull, fullscreen, exitFullscreen] = useFullscreen()
+  const { avatar, role } = local.get('userInfo')
   return (
     <div className="top-header">
       <div className="left">
@@ -176,10 +193,10 @@ const index: React.FC<IHeaderProps> = memo(({ collapsed, setCollapsed }) => {
         >
           <div className="profile">
             <div className="avatar">
-              <img src={avatarJpg} alt="" />
+              <img src={avatar} alt="" />
             </div>
 
-            <div className="name">coderqsh</div>
+            <div className="name">{role.name}</div>
             <DownOutlined style={{
               marginTop: 3,
               marginLeft: 2,
