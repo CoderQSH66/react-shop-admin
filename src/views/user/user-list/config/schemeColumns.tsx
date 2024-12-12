@@ -1,8 +1,8 @@
+import type { IAddUserProps } from '@/types'
 import BaseUpload from '@/components/base/upload'
 import { type ProFormColumnsType, ProFormItem } from '@ant-design/pro-components'
-import type { IUserProps } from './tableColumns'
 
-export const schemeColumns: ProFormColumnsType<IUserProps>[] = [
+export const schemeColumns: ProFormColumnsType<IAddUserProps>[] = [
   {
     title: '用户名',
     dataIndex: 'username',
@@ -17,8 +17,8 @@ export const schemeColumns: ProFormColumnsType<IUserProps>[] = [
   },
   {
     title: '昵称',
-    dataIndex: 'nickame',
-    key: 'nickame',
+    dataIndex: 'nickname',
+    key: 'nickname',
     valueType: 'text'
   },
   {
@@ -27,7 +27,6 @@ export const schemeColumns: ProFormColumnsType<IUserProps>[] = [
     key: 'avatar',
     renderFormItem() {
       return (
-
         <ProFormItem
           name="avatar"
           getValueFromEvent={(e) => {
@@ -43,22 +42,23 @@ export const schemeColumns: ProFormColumnsType<IUserProps>[] = [
   },
   {
     title: '会员等级',
-    dataIndex: 'level',
-    key: 'level',
+    dataIndex: 'user_level_id',
+    key: 'user_level_id',
     valueType: 'select',
     formItemProps: {
       getValueProps(value) {
         return {
-          value: String(value)
+          value: value ? String(value) : '无'
         }
       }
     },
     valueEnum: {
-      0: '普通会员',
-      1: '白银会员',
-      2: '黄金会员',
-      3: '钻石会员'
-    }
+      3: '普通会员',
+      4: '白银会员',
+      5: '黄金会员',
+      6: '钻石会员'
+    },
+    initialValue: '3'
   },
   {
     title: '手机',
@@ -76,6 +76,11 @@ export const schemeColumns: ProFormColumnsType<IUserProps>[] = [
     title: '状态',
     dataIndex: 'status',
     key: 'status',
-    valueType: 'switch'
+    valueType: 'switch',
+    formItemProps: {
+      normalize(value) {
+        return Number(value)
+      }
+    }
   }
 ]

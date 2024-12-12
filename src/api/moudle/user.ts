@@ -1,29 +1,38 @@
-import type { ILoginProps, ILoginReturnProps, IUserInfoProps } from '@/types'
+import type { IAddUserProps, IUserList } from '@/types'
 import $request from '../request'
 
-/** 登录接口 */
-export function login(loginPros: ILoginProps) {
-  return $request.request<ILoginReturnProps>({
-    method: 'post',
-    url: '/login',
-    data: loginPros
+/** 获取用户列表 */
+export function getUserList({ limit = 10, page = 1, keyword = '', user_level_id = '' } = {
+}) {
+  return $request.request<IUserList>({
+    method: 'get',
+    url: `/user/${page}`,
+    params: {
+      limit,
+      keyword,
+      user_level_id
+    }
   })
 }
 
-/** 获取用户信息 */
-export function getUserInfo() {
-  return $request.request<IUserInfoProps>({
+/** 修改用户状态 */
+export function changeUserStatus(id: number, status: number) {
+  return $request.request({
     method: 'post',
-    url: '/getinfo'
-  })
-}
-
-/** 退出登录 */
-export function exitLogin() {
-  return $request.request<IUserInfoProps>({
-    method: 'post',
-    url: '/logout',
+    url: `/user/${id}/update_status`,
+    data: {
+      status
+    },
     showMessage: true,
-    showMessageText: '退出登录成功！'
+    showMessageText: '修改用户状态成功！'
+  })
+}
+
+/** 新增用户 */
+export function addUser(user: IAddUserProps) {
+  return $request.request({
+    method: 'post',
+    url: '/user',
+    data: user
   })
 }

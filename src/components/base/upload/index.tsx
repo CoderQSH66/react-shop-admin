@@ -23,9 +23,7 @@ const BaseUpload: React.FC<WithControlPropsType<UploadProps>> = memo((props) => 
     }])
   }, [model.value])
   return (
-
     <Space>
-
       <Upload
         listType="picture-card"
         fileList={fileList}
@@ -40,7 +38,6 @@ const BaseUpload: React.FC<WithControlPropsType<UploadProps>> = memo((props) => 
               url
             }])
           })
-
           model.onChange(e)
         }}
         beforeUpload={() => {

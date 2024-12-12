@@ -7,7 +7,6 @@ const AuthRoute: React.FC<{ children: React.ReactNode }> = memo(({ children }) =
   const { pathname } = useLocation()
   useEffect(() => {
     const token = local.get('token')
-
     if (token) {
       if (pathname === '/login') {
         navigate('/')

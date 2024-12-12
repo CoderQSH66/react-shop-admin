@@ -1,44 +1,46 @@
+import type { IAddUserProps, IUserProps } from '@/types'
 import type { ProColumns, ProFormInstance } from '@ant-design/pro-components'
+import { changeUserStatus, getUserList } from '@/api'
+import { upladImg } from '@/api/moudle/image'
+import { useHalfScroll } from '@/hooks/useHalfScroll'
 import { BetaSchemaForm, ProTable } from '@ant-design/pro-components'
-import { Button, Space } from 'antd'
+import { Button, Space, Switch } from 'antd'
+import classNames from 'classnames'
 import { memo, useMemo, useRef, useState } from 'react'
-import type { IUserProps } from './config/tableColumns'
 import { schemeColumns } from './config/schemeColumns'
 import { baseTableColumns } from './config/tableColumns'
 import style from './style.module.less'
 
-const initValues: IUserProps = {
-  id: 0,
-  avatar: '',
-  username: '',
-  nickame: '',
-  level: 0,
-  registerDate: 0,
-  status: 0,
-  phone: null,
-  email: ''
-}
-const dataSource: IUserProps[] = []
-for (let i = 0; i < 30; i++) {
-  dataSource.push({
-    id: i,
-    avatar: 'https://picsum.photos/200',
-    username: `user${i}`,
-    level: Number(i % 4),
-    registerDate: Date.now(),
-    status: Math.random() > 0.5 ? 1 : 0,
-    nickame: `nickame${i}`,
-    phone: 123456789,
-    email: `email${i}@qq.com`
-  })
-}
-
 const index = memo(() => {
   const [openDrawer, setOpenDrawer] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [title, setTitle] = useState<'新增' | '编辑'>('新增')
   const formRef = useRef<ProFormInstance>()
   const columns: ProColumns<IUserProps>[] = useMemo(() => {
     return [
       ...baseTableColumns,
+      {
+        title: '状态',
+        dataIndex: 'status',
+        key: 'status',
+        valueType: 'switch',
+        hideInSearch: true,
+        render(_, entity) {
+          return (
+            <Switch
+              value={Boolean(entity.status)}
+              loading={loading}
+              onChange={async (e) => {
+                entity.status = Number(e)
+                setLoading(true)
+                await changeUserStatus(entity.id, e ? 1 : 0)
+                setLoading(false)
+              }}
+            >
+            </Switch>
+          )
+        }
+      },
       {
         title: '操作',
         key: 'option',
@@ -48,6 +50,7 @@ const index = memo(() => {
             <Space>
               <a onClick={() => {
                 setOpenDrawer(true)
+                setTitle('编辑')
                 formRef.current?.resetFields()
                 formRef.current?.setFieldsValue(rocord)
               }}
@@ -67,15 +70,31 @@ const index = memo(() => {
     ]
   }, [])
 
+  const onFinish = async (values: IAddUserProps) => {
+    console.log(values)
+    const { avatar } = values
+    const res = avatar && (typeof avatar === 'object') && await upladImg(avatar)
+    console.log(res)
+  }
+  const [scrollY] = useHalfScroll()
+
   return (
-    <div className={style.root}>
+    <div className={classNames([style.root, 'user-root'])}>
 
       <ProTable
+        className="pro-table"
         columns={columns}
         request={async (params) => {
-          console.log(params)
+          const { current: page, pageSize: limit, username: keyword = '', user_level_id = '' } = params
+          const { data } = await getUserList({
+            page,
+            limit,
+            keyword,
+            user_level_id
+          })
           return {
-            data: dataSource,
+            data: data.list,
+            total: data.totalCount,
             success: true
           }
         }}
@@ -84,7 +103,7 @@ const index = memo(() => {
         }}
         pagination={
           {
-            defaultPageSize: 5,
+            defaultPageSize: 10,
             showSizeChanger: true,
             showQuickJumper: true,
             pageSizeOptions: [5, 10, 20, 30]
@@ -95,6 +114,7 @@ const index = memo(() => {
             type="primary"
             onClick={() => {
               setOpenDrawer(true)
+              setTitle('新增')
               formRef.current?.resetFields()
             }}
           >
@@ -103,18 +123,18 @@ const index = memo(() => {
         )}
         scroll={{
           x: 'max-content',
-          y: 400
+          y: scrollY
         }}
       >
       </ProTable>
-      <BetaSchemaForm
-        initialValues={initValues}
+      <BetaSchemaForm<IAddUserProps>
         formRef={formRef}
         layoutType="DrawerForm"
         open={openDrawer}
         onOpenChange={setOpenDrawer}
         drawerProps={{
-          forceRender: true
+          forceRender: true,
+          title
         }}
         resize={{
           maxWidth: window.innerWidth * 0.8,
@@ -125,9 +145,7 @@ const index = memo(() => {
         labelCol={{
           span: 4
         }}
-        onFinish={async (values) => {
-          console.log(values)
-        }}
+        onFinish={onFinish}
       >
       </BetaSchemaForm>
     </div>

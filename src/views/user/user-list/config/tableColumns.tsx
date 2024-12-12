@@ -1,19 +1,8 @@
+import type { IUserProps } from '@/types'
 import type { ProColumns } from '@ant-design/pro-components'
-import { Avatar, Badge } from 'antd'
+import { Avatar } from 'antd'
 
-export interface IUserProps {
-  id: number
-  avatar: string
-  username: string
-  nickame: string
-  level: number
-  registerDate: number
-  status: number
-  phone: number | null
-  email: string
-}
 export const baseTableColumns: ProColumns<IUserProps>[] = [
-
   {
     title: '会员',
     dataIndex: 'username',
@@ -42,14 +31,20 @@ export const baseTableColumns: ProColumns<IUserProps>[] = [
   },
   {
     title: '会员等级',
-    dataIndex: 'level',
-    key: 'level',
-    valueType: 'text'
+    dataIndex: 'user_level_id',
+    key: 'user_level_id',
+    valueType: 'select',
+    valueEnum: {
+      3: '普通会员',
+      4: '白银会员',
+      5: '黄金会员',
+      6: '钻石会员'
+    }
   },
   {
     title: '登录注册',
-    dataIndex: 'registerDate',
-    key: 'registerDate',
+    dataIndex: 'update_time',
+    key: 'update_time',
     valueType: 'dateTime',
     hideInSearch: true,
     align: 'center',
@@ -59,18 +54,6 @@ export const baseTableColumns: ProColumns<IUserProps>[] = [
           注册时间：
           {dom}
         </div>
-      )
-    }
-  },
-  {
-    title: '状态',
-    dataIndex: 'status',
-    key: 'status',
-    valueType: 'switch',
-    hideInSearch: true,
-    render(_, entity) {
-      return (
-        <Badge status={entity.status ? 'success' : 'error'} text={entity.status ? '启用' : '禁用'}></Badge>
       )
     }
   }

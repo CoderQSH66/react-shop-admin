@@ -126,7 +126,12 @@ const index: React.FC<IHeaderProps> = memo(({ collapsed, setCollapsed }) => {
     )
   }]
   const [isFull, fullscreen, exitFullscreen] = useFullscreen()
-  const { avatar, role } = local.get('userInfo')
+  const {
+    avatar = '',
+    role = {
+    }
+  } = local.get('userInfo') || {
+  }
   return (
     <div className="top-header">
       <div className="left">
